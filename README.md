@@ -1,6 +1,6 @@
-# Nome do Tema - Beamer para [Área/Instituição]
+# Drone - Beamer para Projeto BR-UTM / ITA
 
-Este é um tema Beamer/LaTeX para o projeto BR-UTM.
+Este é um tema Beamer/LaTeX para o projeto BR-UTM do Instituto Técnológico de Aeronáutica.
 
 ## Instalação Rápida (3 opções)
 
