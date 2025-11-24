@@ -1,0 +1,182 @@
+% Arquivo: beamerthemeDrone.sty
+
+\mode<presentation>
+
+% --- 1. Requisitos ---
+\RequirePackage{tikz}
+
+\RequirePackage[backend=biber,style=authoryear]{biblatex} 
+\setlength{\bibitemsep}{0.5\baselineskip} % Adiciona um espaçamento entre cada item
+
+% --- 2. Definição de Cores (Color Theme) ---
+\definecolor{CorPrimaria}{RGB}{0, 85, 150}   % Azul escuro
+\definecolor{CorSecundaria}{RGB}{240, 240, 240} % Cinza claro
+\definecolor{CorTexto}{RGB}{50, 50, 50}      % Cinza escuro para texto
+
+% Aplica as cores
+\setbeamercolor{palette primary}{bg=CorPrimaria, fg=white}
+\setbeamercolor{palette secondary}{bg=CorPrimaria!80, fg=white}
+\setbeamercolor{palette tertiary}{bg=CorPrimaria!60, fg=white}
+
+% Ordem corrigida para evitar herança de cor indesejada no modo de notas
+\setbeamercolor{structure}{fg=CorPrimaria} % Cor de itens como bullets e títulos
+\setbeamercolor{normal text}{fg=CorTexto, bg=white} % Definido por último para garantir precedência
+
+% Cores dos blocos (Teoremas, Exemplos)
+\setbeamercolor{block title}{bg=CorPrimaria, fg=CorSecundaria}
+\setbeamercolor{block body}{bg=CorSecundaria, fg=CorTexto}
+\setbeamercolor{frametitle}{bg=CorPrimaria, fg=CorSecundaria}
+
+% --- 3. Definição de Fontes (Font Theme) ---
+\usefonttheme{professionalfonts} % Usa fontes padrão do LaTeX sem alterações estranhas
+\setbeamerfont{title}{size=\huge, series=\bfseries}
+\setbeamerfont{frametitle}{size=\Large, series=\bfseries}
+
+% --- 4. Inner Theme (Conteúdo Interno) ---
+% Carrega nosso inner theme customizado
+\useinnertheme{uav}
+
+% --- 5. Outer Theme (Cabeçalho e Rodapé) ---
+% Remove os símbolos de navegação (aqueles botões pequenos no canto)
+\setbeamertemplate{navigation symbols}{} 
+
+% Customização do Título do Frame
+\setbeamertemplate{frametitle}{
+    \nointerlineskip
+    % A caixa do título agora ocupa 75% da largura e tem altura variável.
+    % A caixa do título agora ocupa 75% da largura e tem altura fixa.
+    \begin{beamercolorbox}[wd=0.75\paperwidth, ht=3.8ex, dp=2.2ex, leftskip=1ex]{frametitle}
+        \parbox[c][6ex][c]{\dimexpr0.75\paperwidth-2ex\relax}{%
+            % Subtítulo com Seção e Subseção
+            \ifx\insertframesubtitle\empty
+                \ifx\insertsubsection\empty
+                    {\small\bfseries\insertsection}
+                \else
+                    {\small\bfseries\insertsection{} -- \insertsubsection}
+                \fi
+            \else
+                % Se um subtítulo manual for definido, use-o.
+                {\small\bfseries\insertframesubtitle}
+            \fi
+            \ifx\insertframetitle\empty\else\vskip3pt\fi % Pequeno espaço vertical
+            \insertframetitle% Título principal do frame
+        }
+    \end{beamercolorbox}
+    % Usamos TikZ para posicionar o logo no canto superior direito da PÁGINA.
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=north east, yshift=-0.55ex, xshift=-1ex] 
+            at (current page.north east) 
+            {
+                \includegraphics[height=3.5ex]{img/ITA_logo.png}
+            };
+    \end{tikzpicture}
+}
+% Frames que continuam na próxima página não serão numerados
+\setbeamertemplate{frametitle continuation}{}
+
+% Customização do Rodapé (Footline)
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,center]{palette primary}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,center]{palette secondary}%
+    \usebeamerfont{title in head/foot}\insertshorttitle\hspace*{3em}
+    \insertframenumber{} / \ref*{LastFrame}
+  \end{beamercolorbox}}
+  \vskip0pt%
+}
+
+\usebackgroundtemplate{
+    % Define a cor de fundo e, mais importante, a cor do texto padrão (fg).
+    % Isso corrige o problema do texto branco no modo de notas.
+    \setbeamercolor{background canvas}{bg=white, fg=CorTexto}
+    % O ambiente tikz é necessário para usar o comando 'opacity'
+    \begin{tikzpicture}[remember picture, overlay]
+        
+        % Definimos a imagem como um nó com a propriedade 'opacity'
+        \node[opacity=0.25] at (current page.center) {
+            \includegraphics[width=\paperwidth,height=\paperheight]{img/background.png}
+        };
+        
+    \end{tikzpicture}
+}
+
+\AtBeginSection[]{
+  \setbeamertemplate{section page}{}
+}
+
+% =========================================================
+% REDEFINIÇÃO DA PÁGINA DE TÍTULO (CUSTOM OVERRIDE)
+% =========================================================
+
+% 1. Definição do Logo (para uso interno nesta página)
+% Usamos \newcommand ou \def para definir a imagem
+\newcommand{\TitleLogoImage}{%
+    \includegraphics[width=5cm]{img/ITA_logo.png}%
+}
+
+% 2. Redefinição do comando \titlepage
+\renewcommand{\titlepage}{
+    \begin{frame}[plain, noframenumbering] % plain: sem cabeçalho/rodapé
+        \setbeamertemplate{background}{} % Remove o background apenas para este slide
+        \setbeamertemplate{headline}{}% Remove o cabeçalho apenas para este slide
+        \setbeamertemplate{footline}{}% Remove o rodapé apenas para este slide
+        
+        \centering
+        
+        % TÍTULO
+        \vfill % Espaço do topo
+        {\Huge \inserttitle}
+        
+        \vspace{1cm} 
+        
+        % LOGO (ACIMA DO AUTOR)
+        \TitleLogoImage 
+
+        \vspace{0.5cm} 
+        
+        % AUTOR EM NEGRITO
+        {\Large \textbf{\insertauthor}}
+        
+        \vspace{0.5cm} 
+        
+        % DATA
+        {\large \insertdate}
+        
+        \vfill % Preenche o espaço restante até o final
+    \end{frame}
+}
+
+% =========================================================
+% REDEFINIÇÃO DA PÁGINA DE ENCERRAMENTO (CUSTOM)
+% =========================================================
+
+% 1. Comando \closingpage que recebe o conteúdo como argumento
+\newcommand{\closingpage}[1]{%
+    % Remove os elementos padrão do frame
+    \setbeamertemplate{background}{}%
+    \setbeamertemplate{headline}{}%
+    \setbeamertemplate{footline}{}%
+
+    % Posiciona o logo no canto superior ESQUERDO
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=north west, yshift=-0.55ex, xshift=1ex] 
+            at (current page.north west) 
+            {
+                \includegraphics[height=7ex]{img/ITA_logo.png}
+            };
+    \end{tikzpicture}%
+
+    % Centraliza o conteúdo vertical e horizontalmente
+    \vfill
+    \centering
+    \parbox{.8\textwidth}{%
+        \centering
+        #1%
+    }
+    \vfill
+}
+
+\mode<all>

@@ -1,0 +1,37 @@
+% Arquivo: beamerinnerthemeuav.sty
+%
+% Inner theme customizado para o tema Drone.
+% Controla a aparência de listas, blocos, etc.
+
+\mode<presentation>
+
+\ProvidesPackage{beamerinnerthemeuav}[2024/05/21 v1.0 UAV inner theme]
+
+\RequirePackage{enumitem}
+% --- Estilo dos Itens de Lista (compatível com enumitem) ---
+% A linha abaixo foi removida para evitar conflito com enumitem:
+% \setbeamercolor{itemize item}{fg=CorPrimaria} 
+\setlist[itemize,1]{label=\textcolor{CorPrimaria}{\small\ensuremath{\blacktriangleright}}} % Define o SÍMBOLO e a COR usando enumitem
+\setlist[itemize,2]{label=\textcolor{CorPrimaria}{\scriptsize\ensuremath{\blacksquare}}} % Nível 2: Quadrado (menor)
+\setlist[itemize,3]{label=\textcolor{CorPrimaria}{\small\ensuremath{\blacklozenge}}} % Nível 3: Diamante preenchido
+% --- Estilo dos Itens de Lista ---
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+
+% --- Estilo dos Blocos ---
+\setbeamertemplate{block begin}{%
+  \par\vskip\medskipamount%
+  \ifx\insertblocktitle\empty%
+  \else%
+    \begin{beamercolorbox}[sep=.75ex, vmode]{block title}%
+      \usebeamerfont*{block title}\insertblocktitle%
+    \end{beamercolorbox}%
+    {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \fi%
+  \usebeamerfont{block body}%
+  \begin{beamercolorbox}[vmode]{block body}%
+    \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+}
+\setbeamertemplate{block end}{\end{beamercolorbox}\vskip\smallskipamount}
+
+\mode<all>
