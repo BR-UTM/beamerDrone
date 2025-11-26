@@ -8,6 +8,14 @@
 \RequirePackage[backend=biber,style=authoryear]{biblatex} 
 \setlength{\bibitemsep}{0.5\baselineskip} % Adiciona um espaçamento entre cada item
 
+% --- 2. Opções do Tema ---
+% Define uma variável booleana para controlar a página de transição de seção
+\newif\ifbeamer@usesecpage
+\beamer@usesecpagetrue % Padrão: página de transição de seção ativada
+\DeclareOptionBeamer{sectionpage}{\beamer@usesecpagetrue}
+\DeclareOptionBeamer{nosectionpage}{\beamer@usesecpagefalse}
+\ProcessOptionsBeamer % Processa as opções passadas para o tema
+
 % --- 2. Definição de Cores (Color Theme) ---
 \definecolor{CorPrimaria}{RGB}{0, 85, 150}   % Azul escuro
 \definecolor{CorSecundaria}{RGB}{240, 240, 240} % Cinza claro
@@ -97,15 +105,28 @@
         
         % Definimos a imagem como um nó com a propriedade 'opacity'
         \node[opacity=0.25] at (current page.center) {
-            \includegraphics[width=\paperwidth,height=\paperheight]{img/background.png}
+            \includegraphics[width=\paperwidth,height=\paperheight]{img/background2.png}
         };
         
     \end{tikzpicture}
 }
 
-\AtBeginSection[]{
-  \setbeamertemplate{section page}{}
+% =========================================================
+% PÁGINA DE TRANSIÇÃO DE SEÇÃO (Opcional)
+% =========================================================
+\ifbeamer@usesecpage % Só insere a página de transição se a opção estiver ativada
+\AtBeginSection[]
+{
+  \begin{frame}[plain] % plain: sem cabeçalho/rodapé
+    \vfill % Centraliza verticalmente
+    \centering
+    \begin{beamercolorbox}[sep=8pt,center,wd=\paperwidth]{palette primary}
+        \usebeamerfont{title}\color{white}\insertsection\par % Exibe o nome da seção
+    \end{beamercolorbox}
+    \vfill
+  \end{frame}
 }
+\fi % Fim da condição
 
 % =========================================================
 % REDEFINIÇÃO DA PÁGINA DE TÍTULO (CUSTOM OVERRIDE)
