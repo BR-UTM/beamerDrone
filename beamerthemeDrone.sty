@@ -75,7 +75,7 @@
         \node[anchor=north east, yshift=-0.55ex, xshift=-1ex] 
             at (current page.north east) 
             {
-                \includegraphics[height=3.5ex]{img/ITA_logo.png}
+                \includegraphics[height=3.5ex]{ITA_logo.png}
             };
     \end{tikzpicture}
 }
@@ -96,19 +96,24 @@
   \vskip0pt%
 }
 
+% --- 6. Background (Plano de Fundo) ---
+% Comando para armazenar o caminho da imagem de fundo
+\def\drone@backgroundimage{}
+% Comando para o usuário definir a imagem de fundo
+\newcommand{\setbackground}[1]{\def\drone@backgroundimage{#1}}
+
 \usebackgroundtemplate{
     % Define a cor de fundo e, mais importante, a cor do texto padrão (fg).
     % Isso corrige o problema do texto branco no modo de notas.
     \setbeamercolor{background canvas}{bg=white, fg=CorTexto}
-    % O ambiente tikz é necessário para usar o comando 'opacity'
-    \begin{tikzpicture}[remember picture, overlay]
-        
-        % Definimos a imagem como um nó com a propriedade 'opacity'
-        \node[opacity=0.25] at (current page.center) {
-            \includegraphics[width=\paperwidth,height=\paperheight]{img/background2.png}
-        };
-        
-    \end{tikzpicture}
+    % Adiciona a imagem de fundo apenas se uma tiver sido definida com \setbackground
+    \ifx\drone@backgroundimage\empty\else
+        \begin{tikzpicture}[remember picture, overlay]
+            \node[opacity=0.25] at (current page.center) {
+                \includegraphics[width=\paperwidth,height=\paperheight]{\drone@backgroundimage}
+            };
+        \end{tikzpicture}%
+    \fi
 }
 
 % =========================================================
@@ -135,7 +140,7 @@
 % 1. Definição do Logo (para uso interno nesta página)
 % Usamos \newcommand ou \def para definir a imagem
 \newcommand{\TitleLogoImage}{%
-    \includegraphics[width=5cm]{img/ITA_logo.png}%
+    \includegraphics[width=5cm]{ITA_logo.png}%
 }
 
 % 2. Redefinição do comando \titlepage
@@ -186,7 +191,7 @@
         \node[anchor=north west, yshift=-0.55ex, xshift=1ex] 
             at (current page.north west) 
             {
-                \includegraphics[height=7ex]{img/ITA_logo.png}
+                \includegraphics[height=7ex]{ITA_logo.png}
             };
     \end{tikzpicture}%
 

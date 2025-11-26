@@ -21,7 +21,7 @@ wget https://github.com/BR-UTM/beamerDrone/raw/main/beamerthemeDrone.sty
 wget https://github.com/BR-UTM/beamerDrone/raw/main/beamerinnerthemeuav.sty
 wget https://github.com/BR-UTM/beamerDrone/raw/main/img/background1.png
 wget https://github.com/BR-UTM/beamerDrone/raw/main/img/background2.png
-wget https://github.com/BR-UTM/beamerDrone/raw/main/img/ITA_logo.png
+wget https://github.com/BR-UTM/beamerDrone/raw/main/ITA_logo.png
 texhash ~/texmf
 ```
 
@@ -52,6 +52,19 @@ Similar ao Linux/Mac, use: C:\Users\SeuUsuario\texmf\tex\latex\
   \end{frame}
 
 \end{document}
+```
+
+### Imagem de Fundo
+
+O comando `\setbackground{imagem.png}` pode ser usado para configurar uma imagem de fundo para a apresentação:
+
+```latex
+\documentclass[aspectratio=169]{beamer}
+
+\usetheme{Drone}
+\setbackground{img/background1.png} % Defina aqui sua imagem de fundo
+
+ . . .
 ```
 
 ### Páginas de transição
