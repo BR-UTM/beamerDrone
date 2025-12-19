@@ -364,6 +364,6 @@ Temporary Items
 .ionide
 
 # Ignore latexmk out dir
-out
+#out
 
 # End of https://www.toptal.com/developers/gitignore/api/latex,visualstudiocode,macos

@@ -1,7 +1,11 @@
 \documentclass[aspectratio=169]{beamer}
 
+\usepackage{fontspec}
+
 \usetheme{Drone}
 \setbackground{img/background1.png} % Defina aqui sua imagem de fundo
+
+\addbibresource{referencias.bib}
 
 \title{Seu Título}
 \author{Seu Nome}
@@ -18,29 +22,30 @@
 
 \setcounter{framenumber}{0} % Reinicia a contagem de páginas
 
+
 \section{Exemplo}
 
 \subsection{Tema Drone}
 
-\begin{frame}{Exemplo de Frame}
+\begin{frame}{Exemplo de Frame - \cite{angenendt}}
 
-    \begin{block}{Exemplo de bloco}
+    \begin{block}{Exemplo de bloco - \parencite{aksin}}
         \begin{itemize}
-            \item Exemplo de lista;
-            \item Item do exemplo de lista;
+            \item Exemplo de lista \parencite{baez/article};
+            \item Item do exemplo de lista \parencite{westfahl:space};
         \end{itemize}
     \end{block}
 
 \end{frame}
 
+
 \section{Outra seção}
 
 \subsection{Mais uma página}
 
-
 \begin{frame}{Outro exemplo de Frame}
 
-    \begin{block}{Outro exemplo de bloco}
+    \begin{block}{Outro exemplo de bloco - \parencite{westfahl:frontier}}
         \begin{itemize}
             \item Outro exemplo de lista;
             \item Item do outro exemplo de lista;
@@ -49,13 +54,19 @@
 
 \end{frame}
 
-
 \begin{frame}{Última página}
 
     \begin{itemize}
         \item Final da apresentação
     \end{itemize}
     \label{LastFrame} % Marca este como o último slide a ser contado
+
+\end{frame}
+
+\begin{frame}[plain, allowframebreaks]
+    \frametitle{Referências}
+
+    \printbibliography[title={Bibliografia}]
 
 \end{frame}
 
